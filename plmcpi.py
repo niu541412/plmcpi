@@ -29,8 +29,8 @@ def pl_mc_pi(n, t):
     for y in pool.imap_unordered(mc_pi, [n] * t):
         pi[cnt] = y
         m = np.mean(pi[0:cnt + 1])
-        sys.stdout.write('done %d/%d, current pi is %f\r' % (cnt, t, m))
         cnt += 1
+        sys.stdout.write('done %d/%d, current pi is %f\r' % (cnt, t, m))
     b = time.time() - a
     print("\nToal time: %.1fsec\n" % (b))
     return np.mean(pi)
