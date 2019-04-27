@@ -1,4 +1,4 @@
-def mc_pi(n):       #Sampling n points to calculate pi.
+def mc_pi(n):  # Sampling n points to calculate pi.
     #import time
     import numpy as np
     #a = time.time()
@@ -15,9 +15,11 @@ def mc_pi(n):       #Sampling n points to calculate pi.
     return (pi[n - 1])
 
 
-
-def pl_mc_pi(n, t):     #use every core of CPU to parallel calculate pi, loop t times, every time sampling n points.
-    import time,sys,multiprocessing
+# use every core of CPU to parallel calculate pi, loop t times, every time sampling n points.
+def pl_mc_pi(n, t):
+    import time
+    import sys
+    import multiprocessing
     import numpy as np
     a = time.time()
     cores = multiprocessing.cpu_count()
@@ -26,17 +28,15 @@ def pl_mc_pi(n, t):     #use every core of CPU to parallel calculate pi, loop t 
     pi = [None] * t
     for y in pool.imap_unordered(mc_pi, [n] * t):
         pi[cnt] = y
-        m=np.mean(pi[0:cnt+1])
+        m = np.mean(pi[0:cnt + 1])
         sys.stdout.write('done %d/%d, current pi is %f\r' % (cnt, t, m))
         cnt += 1
     b = time.time() - a
-    print("\nToal time: %.1fsec\n" % (b))    
+    print("\nToal time: %.1fsec\n" % (b))
     return np.mean(pi)
 
 
-
-
-def mc_pi_plot(n, tt):     #want to plot an animation to show the progress?
+def mc_pi_plot(n, tt):  # want to plot an animation to show the progress?
     import time
     import numpy as np
     import matplotlib.pyplot as plt
@@ -65,4 +65,3 @@ def mc_pi_plot(n, tt):     #want to plot an animation to show the progress?
     if tt:
         plt.show()
     return (pi[n - 1])
-
